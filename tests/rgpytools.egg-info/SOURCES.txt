@@ -1,0 +1,7 @@
+README.md
+setup.py
+rgpytools.egg-info/PKG-INFO
+rgpytools.egg-info/SOURCES.txt
+rgpytools.egg-info/dependency_links.txt
+rgpytools.egg-info/requires.txt
+rgpytools.egg-info/top_level.txt
