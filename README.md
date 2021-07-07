@@ -1,4 +1,4 @@
-# This is a collection of python tools used during my PhD
+# This is a collection of python tools
 
 
 ## Install
