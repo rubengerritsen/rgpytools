@@ -15,6 +15,6 @@ def test_fromCos():
         [1.7377400426,       7.4633657651,       0.0000000000],
         [0.4477302728,       1.3537802157,      14.2920462401]])
 
-  res = crystal.fromCos(A, B, C, cosAB, cosAC, cosBC) - uc_ref
+  res = crystal.ucMatFromCos(A, B, C, cosAB, cosAC, cosBC) - uc_ref
   assert np.sum(res) < 1e-8
 

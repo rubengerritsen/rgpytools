@@ -1,3 +1,5 @@
 .eggs
 .pytest*
 .vscode
+tmp*
+*.egg-info
