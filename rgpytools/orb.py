@@ -12,9 +12,7 @@ def helpMessage():
   """)
 
 def moduleHelp():
-  return("""
-  useful help message.
-  """)
+  return(helpMessage())
 
 class Orbitals:
     
@@ -25,6 +23,7 @@ class Orbitals:
         """
         self.orb = h5pyGroup
         self.hdf5File = hdf5File
+        self.hrt2ev = 27.211396132
         
     def __enter__(self):
         return self
@@ -88,9 +87,17 @@ class Orbitals:
     
     def getTransitionDipoles(self):
         return self.readGroupOfArraysHDF5(self.orb, "transition_dipoles")
+
+    def getOscillatorStrenghts(self):
+      """ Returns oscillator strengths, scaled from Hartree to eV. """
+      return 2.0/3.0 * np.linalg.norm(self.getTransitionDipoles(), axis = 1)**2 * self.getSingletEnergies() / self.hrt2ev
+
+    def getTotalQMEnergy(self):
+        return self.orb.attrs['qm_energy'][0] * self.hrt2ev
     
     def getEnergies(self):
-        return self.orb['mos']['eigenvalues'][()].transpose()[0]
+        """ In eV """
+        return self.orb['mos']['eigenvalues'][()].transpose()[0]  * self.hrt2ev
     
     def getMOs(self):
         return self.orb['mos']['eigenvectors'][()]
@@ -102,7 +109,8 @@ class Orbitals:
         return self.orb['mos']['eigenvectors2'][()]
     
     def getSingletEnergies(self):
-        return  self.orb['BSE_singlet']['eigenvalues'][()].transpose()[0]
+        """ Returns singlet energy in eV """ 
+        return  self.orb['BSE_singlet']['eigenvalues'][()].transpose()[0] * self.hrt2ev
     
     def getSingletMOsA(self):
         return self.orb['BSE_singlet']['eigenvectors'][()]
@@ -111,7 +119,8 @@ class Orbitals:
         return self.orb['BSE_singlet']['eigenvectors'][()]
         
     def getTripletEnergies(self):
-        return  self.orb['BSE_triplet']['eigenvalues'][()].transpose()[0]
+        """ In eV """
+        return  self.orb['BSE_triplet']['eigenvalues'][()].transpose()[0] * self.hrt2ev
     
     def getTripletMOsA(self):
         return self.orb['BSE_triplet']['eigenvectors'][()]
@@ -120,10 +129,11 @@ class Orbitals:
         return self.orb['BSE_triplet']['eigenvectors'][()]
     
     def getQPPertEnergies(self):
+        """ In eV """
         return  self.orb['QPpert_energies'][()].transpose()[0]
     
     def getQPDiagEigenVal(self):
-        return  self.orb['QPdiag']['eigenvalues'][()].transpose()[0]
+        return  self.orb['QPdiag']['eigenvalues'][()].transpose()[0] * self.hrt2ev
     
     def getQPDiag(self):
         return self.orb['QPdiag']['eigenvectors'][()]
@@ -132,7 +142,8 @@ class Orbitals:
         return self.orb['QPdiag']['eigenvectors'][()]
     
     def rpaInputEnergies(self):
-        return self.orb['RPA_inputenergies'][()]
+        """ in eV """
+        return self.orb['RPA_inputenergies'][()]  * self.hrt2ev
     
     
 if __name__ == '__main__':
