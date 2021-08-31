@@ -36,3 +36,10 @@ def draw_unitcell(a,b,c):
     curve(vector(0,0,0), vector(a[0], a[1], a[2]),  radius=0.05, color = vector(0.99,0.,0.))
     curve(vector(0,0,0), vector(b[0], b[1], b[2]),  radius=0.05, color = vector(0.,1.,0))
     curve(vector(0,0,0), vector(c[0], c[1], c[2]),  radius=0.05, color = vector(0.,0,1.))
+
+def start_canvas(center):
+    scene = canvas(width=1200, height=800)
+    scene.center = vector(center[0], center[1], center[2])
+    scene.caption = " " 
+    axes = [vector(1,0,0), vector(0,1,0), vector(0,0,1)]
+    return (scene, axes)

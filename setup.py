@@ -8,7 +8,7 @@ setup(
   description='personal python tools', 
   author='Ruben Gerritsen', 
   license='MIT',
-  install_requires=['numpy', 'vpython'],
+  install_requires=['numpy'],
   setup_requires=['pytest-runner'],
   tests_require=['pytest'],
   test_suite='tests',)
